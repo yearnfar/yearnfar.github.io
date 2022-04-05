@@ -26,7 +26,7 @@ enableGitalk = false
 enableOpenGraph = true
 enableTwitterCards = true
 title = "My Blog" # will set 'og:site_name'
-description = "My HomePage Description"  # will set 'og:description'
+description = "yearnfar的博客,yearnfar的分享,yearnfar的学习记录"  # will set 'og:description'
 
 [params.gitalk]
   owner = "user"
@@ -44,18 +44,19 @@ label="your label"
 theme="github-light"
 
 [[menu.main]]
-url = "/posts"
-name = "文章"
+url = "/about"
+name = "关于／About"
 weight = 1
 [[menu.main]]
-url = "/categories"
-name = "分类"
+url = "/posts"
+name = "归档／Archive"
 weight = 2
 [[menu.main]]
-url = "/tags"
-name = "标签"
+url = "https://www.ecosia.org/search?q=site:blog.yearnfar.com"
+name = "搜索／Search"
 weight = 3
-#[[menu.main]]
-#url = "/index.xml"
-#name = "RSS Feed"
-#weight = 4
+[[menu.main]]
+url = "/index.xml"
+name = "订阅／RSS"
+weight = 4
+
