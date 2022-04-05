@@ -4,7 +4,7 @@ languageCode = "zh"
 title = "知识时光机"
 copyright = "yearnfar 2022"
 theme = "diary"
-# googleAnalytics = "UA-123-45"
+googleAnalytics = "G-QBPX79CYCP"
 
 [markup]
   [markup.highlight]
