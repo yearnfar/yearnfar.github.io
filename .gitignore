@@ -1,2 +1,4 @@
+# 屏蔽目录
 /public/
+/resources/
 .DS_Store
