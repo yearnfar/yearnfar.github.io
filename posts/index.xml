@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 知识时光机</title><link>https://blog.yearnfar.com/posts/</link><description>Recent content in Posts on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Tue, 05 Apr 2022 09:52:43 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>知识时光机</title><link>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</link><pubDate>Tue, 05 Apr 2022 09:52:43 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</guid><description>为什么要写博客 以前在开源中国上面写过一段时间的博客，偶尔也写一些原创性的，但是大多数还是已转载为主。可能是转载的转多了（可以转载为什么要原创），也可能是进步太慢（没有什么可以总结的），后来慢慢的也不写博客了。最近更加注重学习和总结，于是又重新拾起博客，让它记录我学习和成长的过程。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 知识时光机</title><link>https://blog.yearnfar.com/posts/</link><description>Recent content in Posts on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Sat, 23 Apr 2022 21:24:40 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>数据库缓存一致性</title><link>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</link><pubDate>Sat, 23 Apr 2022 21:24:40 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</guid><description>在高并发场景下，保证数据库和缓存一致性
+更新缓存有4中方案
+先更新数据库，然后更新缓存 先更新缓存，然后更新数据库 先更新数据库，然后删除缓存 先删除缓存，然后更新数据库 下面我们分别分四种情况的高并发情况下，四种方案可能出现的问题：
+先更新数据库，然后更新缓存 进程一、进程二都模拟了一个先更新数据库，后更新缓存的场景。
+1、如果进程更新缓存发生时间在进程一更新缓存之前，即t3变成了t3`，这时存储的缓存值是v1。发生了数据库和缓存不一致的情况。
+2、如果更新后的这个key对应的缓存使用率不高，则会导致缓存空间的浪费。
+先更新缓存，然后更新数据库 先更新缓存后更新数据库，会遇到的问题似乎更多：
+1、更新缓存成功后，更新数据库失败的情况，
+先更新数据库，然后删除缓存 进程一、进程三模拟更新数据库并删除缓存。
+进程二、进程四模拟读取缓存值，区别在于进程二是读取缓存不存在，从数据库中取值并写入数据库。
+从上面的图可以看出，如果t5-&amp;gt;t7时间段其他进程读取缓存值，则读取到的值是v1，而此时数据库中的值是v2。出现了不一致。考虑到，t7 - t5 是一个比较短的时间，出现异常的概率是比较小的。
+但是，如果t1或者t7删除缓存失败，则会导致缓存被删除或失效前，读取到的都是旧值。所以这种方案需要确保删除缓存可靠性很高。推荐的做法是，先删除一次，如果删除是失败，再写入消息队列，使用消息队列的重试功能区删除，直到删除成功为止。</description></item><item><title>知识时光机</title><link>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</link><pubDate>Tue, 05 Apr 2022 09:52:43 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</guid><description>为什么要写博客 以前在开源中国上面写过一段时间的博客，偶尔也写一些原创性的，但是大多数还是已转载为主。可能是转载的转多了（可以转载为什么要原创），也可能是进步太慢（没有什么可以总结的），后来慢慢的也不写博客了。最近更加注重学习和总结，于是又重新拾起博客，让它记录我学习和成长的过程。
 应该避免的问题 既然现在开始写博客，我想还是要先总结下以前放弃写博客的原因，以及怎么做才能不重蹈覆辙。
 傻逼定律 写完一篇博客，过了一段时间回过头来看，发现分享的东西特别的初级或者分享的想法不够成熟。这个时候我往往会选择删掉它，或许这是打击我写博客的最大因素吧。人总是在成长，用以后的眼光看现在的东西是不对的，我应该以发现以前的自己是个“傻逼”而高兴，而不是去遮盖我以前是个“傻逼”的事实。
 不转载 以前写博客总喜欢去转载别人的，或者大多数是别人的，自己只是在它的基础上重新组织下。转载就好像写代码的时候直接Copy别人的代码，对其中的很多东西了解的并不彻底。而且自己内心对转载的东西还是比较拒绝的，当发现自己的博客里面大部分都是转载的东西时，就觉得这已经不是自己的博客。慢慢也就没有了写作的兴趣，所以我觉得还是应该不转载其他人的文章。
