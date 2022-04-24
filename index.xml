@@ -18,9 +18,9 @@
 &lt;h3 id="先更新数据库然后删除缓存">先更新数据库，然后删除缓存&lt;/h3>
 &lt;p>&lt;img src="https://blog.yearnfar.com/images/%E5%85%88%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8E%E5%88%A0%E9%99%A4%E7%BC%93%E5%AD%98.drawio.png" alt="">&lt;/p>
 &lt;p>进程一、进程三模拟更新数据库并删除缓存。&lt;/p>
-&lt;p>进程二、进程四模拟读取缓存值，区别在于进程二是读取缓存不存在，从数据库中取值并写入数据库。&lt;/p>
-&lt;p>从上面的图可以看出，如果t5-&amp;gt;t7时间段其他进程读取缓存值，则读取到的值是v1，而此时数据库中的值是v2。出现了不一致。考虑到，t7 - t5 是一个比较短的时间，出现异常的概率是比较小的。&lt;/p>
-&lt;p>但是，如果t1或者t7删除缓存失败，则会导致缓存被删除或失效前，读取到的都是旧值。所以这种方案需要确保删除缓存可靠性很高。推荐的做法是，先删除一次，如果删除是失败，再写入消息队列，使用消息队列的重试功能区删除，直到删除成功为止。&lt;/p>
+&lt;p>进程二模拟首次生成缓存值。&lt;/p>
+&lt;p>从上面的图可以看出，如果t3-&amp;gt;t6时间段有更新数据库并删除缓存，则会出数据库中值为v2，但是缓存中值为v1的情况。这种概率几乎可以忽略不计，因为t3-&amp;gt; t6时间非常短，且更新数据库和删除缓存都必须都发生在这个时间才会导致上述情况。&lt;/p>
+&lt;p>但是，如果t1或者t5删除缓存失败，则会导致在缓存被删除或失效前读取到的都是旧值。所以这种方案需要确保删除缓存操作的可靠性很高。推荐的做法是，先删除一次，如果删除失败，再写入消息队列，使用消息队列的重试删除，直到删除成功为止。&lt;/p>
 - https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/ - yearnfar 2022</description></item><item><title>About</title><link>https://blog.yearnfar.com/about/</link><pubDate>Tue, 05 Apr 2022 17:38:38 +0800</pubDate><guid>https://blog.yearnfar.com/about/</guid><description>知识时光机 https://blog.yearnfar.com/about/ -- https://blog.yearnfar.com/about/ - yearnfar 2022</description></item><item><title>知识时光机</title><link>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</link><pubDate>Tue, 05 Apr 2022 09:52:43 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/ -&lt;h1 id="为什么要写博客">为什么要写博客&lt;/h1>
 &lt;p>以前在开源中国上面写过一段时间的博客，偶尔也写一些原创性的，但是大多数还是已转载为主。可能是转载的转多了（可以转载为什么要原创），也可能是进步太慢（没有什么可以总结的），后来慢慢的也不写博客了。最近更加注重学习和总结，于是又重新拾起博客，让它记录我学习和成长的过程。&lt;/p>
 &lt;h1 id="应该避免的问题">应该避免的问题&lt;/h1>
