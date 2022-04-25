@@ -1,4 +1,30 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>知识时光机</title><link>https://blog.yearnfar.com/</link><description>Recent content on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Sat, 23 Apr 2022 21:24:40 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/index.xml" rel="self" type="application/rss+xml"/><item><title>数据库缓存一致性</title><link>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</link><pubDate>Sat, 23 Apr 2022 21:24:40 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/ -&lt;p>在高并发场景下，保证数据库和缓存一致性&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>知识时光机</title><link>https://blog.yearnfar.com/</link><description>Recent content on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Tue, 26 Apr 2022 00:03:52 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Go1.18泛型实现并发安全的map</title><link>https://blog.yearnfar.com/posts/go1.18%E6%B3%9B%E5%9E%8B%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84map/</link><pubDate>Tue, 26 Apr 2022 00:03:52 +0800</pubDate><guid>https://blog.yearnfar.com/posts/go1.18%E6%B3%9B%E5%9E%8B%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84map/</guid><description>知识时光机 https://blog.yearnfar.com/posts/go1.18%E6%B3%9B%E5%9E%8B%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84map/ -&lt;p>使用go泛型失效并发安全的map结构&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#8b008b;font-weight:bold">package&lt;/span> mut
+&lt;span style="color:#8b008b;font-weight:bold">import&lt;/span> (
+&lt;span style="color:#cd5555">&amp;#34;sync&amp;#34;&lt;/span>
+)
+&lt;span style="color:#8b008b;font-weight:bold">type&lt;/span> Map[K, V comparable] &lt;span style="color:#8b008b;font-weight:bold">struct&lt;/span> {
+mu sync.RWMutex
+values &lt;span style="color:#8b008b;font-weight:bold">map&lt;/span>[K]V
+}
+&lt;span style="color:#8b008b;font-weight:bold">func&lt;/span> (m *Map[K, V]) &lt;span style="color:#008b45">Put&lt;/span>(key K, value V) {
+m.mu.&lt;span style="color:#008b45">Lock&lt;/span>()
+m.values[key] = value
+m.mu.&lt;span style="color:#008b45">Unlock&lt;/span>()
+}
+&lt;span style="color:#8b008b;font-weight:bold">func&lt;/span> (m *Map[K, V]) &lt;span style="color:#008b45">Get&lt;/span>(key K) V {
+&lt;span style="color:#8b008b;font-weight:bold">var&lt;/span> v V
+m.mu.&lt;span style="color:#008b45">RLock&lt;/span>()
+v = m.values[key]
+m.mu.&lt;span style="color:#008b45">RUnlock&lt;/span>()
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> v
+}
+&lt;span style="color:#8b008b;font-weight:bold">func&lt;/span> NewMap[K, V comparable]() *Map[K, V] {
+m := &amp;amp;Map[K, V]{}
+m.values = &lt;span style="color:#658b00">make&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">map&lt;/span>[K]V)
+&lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> m
+}
+&lt;/code>&lt;/pre>&lt;/div>- https://blog.yearnfar.com/posts/go1.18%E6%B3%9B%E5%9E%8B%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84map/ - yearnfar 2022</description></item><item><title>数据库缓存一致性</title><link>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</link><pubDate>Sat, 23 Apr 2022 21:24:40 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/ -&lt;p>在高并发场景下，保证数据库和缓存一致性&lt;/p>
 &lt;p>更新缓存有4中方案&lt;/p>
 &lt;ul>
 &lt;li>先更新数据库，然后更新缓存&lt;/li>
