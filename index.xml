@@ -13,7 +13,7 @@
 &lt;p>1、如果进程二更新缓存发生在进程一更新缓存之前（即t3变成了t3`），此时缓存值是v1，数据库值为v2，发生了数据库和缓存不一致的情况。&lt;/p>
 &lt;p>2、先更新数据库后更新缓存还存在如果该缓存使用率不高，浪费缓存空间的情况。&lt;/p>
 &lt;h3 id="先更新缓存然后更新数据库">先更新缓存，然后更新数据库&lt;/h3>
-&lt;p>&lt;img src="https://blog.yearnfar.com/Users/yearnfar/Workspace/yearnfar/yearnfar.github.io/static/images/%E5%85%88%E6%9B%B4%E6%96%B0%E7%BC%93%E5%AD%98%E5%90%8E%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE%E5%BA%93.drawio.png" alt="先更新缓存后更新数据库">&lt;/p>
+&lt;p>&lt;img src="https://blog.yearnfar.com/images/%E5%85%88%E6%9B%B4%E6%96%B0%E7%BC%93%E5%AD%98%E5%90%8E%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE%E5%BA%93.drawio.png" alt="先更新缓存后更新数据库">&lt;/p>
 &lt;p>进程一、进程二分别模拟了一个先更新缓存，后更新数据库的场景。&lt;/p>
 &lt;p>1、如果进程二更新数据库发生在进程一更新数据库之前（即t3变成了t3`），此时缓存值为v2，数据库值为v1，出现了缓存与数据库不一致的情况。&lt;/p>
 &lt;p>2、先更新缓存后更新数据库也存在也存在如果key对应缓存使用率不高，浪费缓存空间的情况。&lt;/p>
