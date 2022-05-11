@@ -1,15 +1,15 @@
 ---
-title: "Su和su 和sudo区别"
+title: "su和su -和sudo区别"
 date: 2022-05-10T19:24:06+08:00
 lastmod: 2022-05-10T19:24:06+08:00
-description: ""
-tags: []
+description: "linux环境su和su -和sudo区别"
+tags: ["linux", "sudo", "su"]
 featured_image: ""
 # images is optional, but needed for showing Twitter Card
 images: []
 categories:
 comment: false
-draft: true
+draft: false
 author: "yearnfar"
 ---
 
@@ -27,15 +27,19 @@ root	ALL=(ALL) 	ALL
 your_name ALL=(ALL) NOPASSWD: ALL
 ```
 
-#### 修改sudo PATH
+### su 与 su - 与 sudo
 
-我在/usr/local/bin目录安装了docker-compose 
+su 不加任何参数，切换到root，不变环境变量(与切换前一致)。
 
-但是使用sudo docker-compose 却提示命令不存在，这时还是要使用visudo 修改secure_path，增加/usr/local/bin，这样/usr/local/bin就加到sudo 的PATH里面了。
+su - ，切换到root，并且切换到root的环境变量。
+
+sudo命令使用时将PATH环境变量进行了重置，我们使用sudo visudo 在secure_path可以看到sudo所设置的PATH环境变量。
 
 ```shell
-Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:
 ```
+
+
 
 
 
