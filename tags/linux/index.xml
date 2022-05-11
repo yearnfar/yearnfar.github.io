@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on 知识时光机</title><link>https://blog.yearnfar.com/tags/linux/</link><description>Recent content in linux on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Tue, 10 May 2022 19:24:06 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>su和su -和sudo区别</title><link>https://blog.yearnfar.com/posts/su%E5%92%8Csu-%E5%92%8Csudo%E5%8C%BA%E5%88%AB/</link><pubDate>Tue, 10 May 2022 19:24:06 +0800</pubDate><guid>https://blog.yearnfar.com/posts/su%E5%92%8Csu-%E5%92%8Csudo%E5%8C%BA%E5%88%AB/</guid><description>最近强迫症又犯了，把自己跑了4年的服务器重装了下系统。重装之后，开始认真的研究如何使用。
+以前很少使用sudo这个命令，如果要root权限一般都是直接su 输入root密码。但是sudo明显要更加方便。于是就开启了sudo权限。
+开启sudo visudo 在root下添加一行
+## Allow root to run any commands anywhere root ALL=(ALL) ALL your_name ALL=(ALL) NOPASSWD: ALL su 与 su - 与 sudo su 不加任何参数，切换到root，不变环境变量(与切换前一致)。
+su - ，切换到root，并且切换到root的环境变量。
+sudo命令使用时将PATH环境变量进行了重置，我们使用sudo visudo 在secure_path可以看到sudo所设置的PATH环境变量。
+Defaults secure_path = /sbin:/bin:/usr/sbin:/usr/bin:</description></item></channel></rss>
