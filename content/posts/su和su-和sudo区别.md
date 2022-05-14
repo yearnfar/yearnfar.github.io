@@ -33,7 +33,7 @@ su 不加任何参数，切换到root，不变环境变量(与切换前一致)�
 
 su - ，切换到root，并且切换到root的环境变量。
 
-sudo命令使用时将PATH环境变量进行了重置，我们使用sudo visudo 在secure_path可以看到sudo所设置的PATH环境变量。
+sudo能使用root权限执行，但是需要注意使用时将PATH环境变量进行了重置，我们使用sudo visudo 在secure_path可以看到sudo所设置的PATH环境变量。
 
 ```shell
 Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:
