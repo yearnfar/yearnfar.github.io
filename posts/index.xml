@@ -15,10 +15,9 @@
 “甲板上都用铁板就可以了”。我自信满满的说道
 “装满煤炭能去下西洋吗？到了没有煤的地方怎么办呢？”。郑和问道
 “我&amp;hellip;&amp;quot;
-到了明朝，我的蒸汽机面临了现在新能源一样的困境。里程焦虑，并不是每个地方都用煤炭可以买到煤炭，相比之下船帆+人力的组合更靠谱一些。
+到了明朝，我的蒸汽机竟然面临了和新能源一样的困境，里程焦虑。并不是每个地方都可以买到煤，相比之下船帆+人力的组合更靠谱一些。
 反思 看样子不是古人不够聪明，恰恰相反，是他们太聪明，蒸汽机并不是他们当时场景下的最佳的选择而没有被发明。
-但是这么先进的东西，没有被发明确实一种遗憾，我们应该避免在当今年代遇到蒸汽机同样的问题。
-庆幸我们这个时代有实验室、研究所这些机构，他们不用太关注经济利益，去研究科学。</description></item><item><title>IGC2022-05-16</title><link>https://blog.yearnfar.com/posts/igc2022-05-16/</link><pubDate>Mon, 16 May 2022 19:14:22 +0800</pubDate><guid>https://blog.yearnfar.com/posts/igc2022-05-16/</guid><description>最近连着下了几天雨，今天天气有转好的迹象，拍几张照片留作纪念。</description></item><item><title>su和su -和sudo区别</title><link>https://blog.yearnfar.com/posts/su%E5%92%8Csu-%E5%92%8Csudo%E5%8C%BA%E5%88%AB/</link><pubDate>Tue, 10 May 2022 19:24:06 +0800</pubDate><guid>https://blog.yearnfar.com/posts/su%E5%92%8Csu-%E5%92%8Csudo%E5%8C%BA%E5%88%AB/</guid><description>最近强迫症又犯了，把自己跑了4年的服务器重装了下系统。重装之后，开始认真的研究如何使用。
+但是这么先进的东西，没有被发明确实一种遗憾，我们应该避免在当今年代遇到蒸汽机同样的问题。庆幸的是我们这个时代有实验室、研究所这些机构，他们不用太关注经济利益，去研究科学。</description></item><item><title>IGC2022-05-16</title><link>https://blog.yearnfar.com/posts/igc2022-05-16/</link><pubDate>Mon, 16 May 2022 19:14:22 +0800</pubDate><guid>https://blog.yearnfar.com/posts/igc2022-05-16/</guid><description>最近连着下了几天雨，今天天气有转好的迹象，拍几张照片留作纪念。</description></item><item><title>su和su -和sudo区别</title><link>https://blog.yearnfar.com/posts/su%E5%92%8Csu-%E5%92%8Csudo%E5%8C%BA%E5%88%AB/</link><pubDate>Tue, 10 May 2022 19:24:06 +0800</pubDate><guid>https://blog.yearnfar.com/posts/su%E5%92%8Csu-%E5%92%8Csudo%E5%8C%BA%E5%88%AB/</guid><description>最近强迫症又犯了，把自己跑了4年的服务器重装了下系统。重装之后，开始认真的研究如何使用。
 以前很少使用sudo这个命令，如果要root权限一般都是直接su 输入root密码。但是sudo明显要更加方便。于是就开启了sudo权限。
 开启sudo visudo 在root下添加一行
 ## Allow root to run any commands anywhere root ALL=(ALL) ALL your_name ALL=(ALL) NOPASSWD: ALL su 与 su - 与 sudo su 不加任何参数，切换到root，不变环境变量(与切换前一致)。
