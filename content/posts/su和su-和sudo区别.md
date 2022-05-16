@@ -4,7 +4,7 @@ date: 2022-05-10T19:24:06+08:00
 lastmod: 2022-05-10T19:24:06+08:00
 description: "linux环境su和su -和sudo区别"
 tags: ["linux", "sudo", "su"]
-featured_image: ""
+featured_image: "https://cdn.yearnfar.com/blog/22/05/489d75f11aac3e85761a38c5c2104f48.webp"
 # images is optional, but needed for showing Twitter Card
 images: []
 categories:
