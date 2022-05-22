@@ -52,8 +52,8 @@ url = "/posts"
 name = "归档／Archive"
 weight = 2
 [[menu.main]]
-url = "/categories"
-name = "分类／Category"
+url = "/tags"
+name = "标签／Tags"
 weight = 3
 [[menu.main]]
 url = "https://www.ecosia.org/search?q=site:blog.yearnfar.com"

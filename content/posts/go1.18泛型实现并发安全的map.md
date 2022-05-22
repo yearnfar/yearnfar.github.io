@@ -3,11 +3,11 @@ title: "Go1.18泛型实现并发安全的map"
 date: 2022-04-26T00:03:52+08:00
 lastmod: 2022-04-26T00:03:52+08:00
 description: "使用go泛型失效并发安全的map结构"
-tags: ["golang"]
+tags: ["golang", "泛型"]
 featured_image: "https://cdn.yearnfar.com/blog/22/05/93c5a7f602430ecdebe318fdcf5b3bc3.webp"
 # images is optional, but needed for showing Twitter Card
 images: []
-categories: "golang"
+categories: ""
 comment: false
 draft: false
 author: "yearnfar"

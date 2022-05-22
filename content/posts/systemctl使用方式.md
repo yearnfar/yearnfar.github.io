@@ -1,8 +1,8 @@
 ---
-title: "Systemctl使用方式"
+title: "systemctl使用方式"
 date: 2022-05-22T17:53:42+08:00
 lastmod: 2022-05-22T17:53:42+08:00
-description: ""
+description: "systemctl nginx服务配置和常用命令介绍"
 tags: []
 featured_image: "https://cdn.yearnfar.com/blog/22/05/5db8a618b09c8c52153a8d0e479503ad.png"
 # images is optional, but needed for showing Twitter Card
