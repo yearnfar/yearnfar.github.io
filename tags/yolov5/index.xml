@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>yolov5 on 知识时光机</title><link>https://blog.yearnfar.com/tags/yolov5/</link><description>Recent content in yolov5 on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Sun, 22 May 2022 18:16:32 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/tags/yolov5/index.xml" rel="self" type="application/rss+xml"/><item><title>在Jetson Nano上跑yolov5</title><link>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</link><pubDate>Sun, 22 May 2022 18:16:32 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</guid><description>Jetson Naon搭建 参考官方文档：Jetson Nano 开发者套件入门
+按照官方文档搭建好Jetson Nano环境后，可以看到/usr/local/cuda目录，将CUDA加入环境变量：
+export CUDA_HOME=/usr/local/cuda export PATH=$CUDA_HOME/bin:$PATH export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH 查看CUDA信息
+➜ ~ nvcc -V nvcc: NVIDIA (R) Cuda compiler driver Copyright (c) 2005-2021 NVIDIA Corporation Built on Sun_Feb_28_22:34:44_PST_2021 Cuda compilation tools, release 10.2, V10.2.300 Build cuda_10.2_r440.TC440_70.29663091_0 准备Python 以前一直使用Anaconda管理Python环境，但是在Jetson Nano安装Anaconda或Miniconda时都出现了&amp;quot;core dumped&amp;quot;，最后发现了miniforge 这个项目。
+我这里安装的是4.12.0版本：Mambaforge-Linux-aarch64.sh
+➜ ~ sudo ./Mambaforge-Linux-aarch64.sh 安装好Mamba后就是创建Python环境了。
+因为PyTorch官方不提供ARM aarch64架构的CUDA版本，所以我下载Nvida官网编译好的二进制包。目前提供PyTorch1.0.0 ~ PyTorch1.12.0 总计13个版本可供选择。
+PyTorch for Jetson
+怎么选择PyTorch版本呢？我们可以看到不同的PyTorch版本对JetPack版本要求是不一样，先查看Jetson Nano的JetPack版本。
+➜ ~ cat /etc/nv_tegra_release # R32 (release), REVISION: 7.2, GCID: 30192233, BOARD: t210ref, EABI: aarch64, DATE: Wed Apr 20 21:34:48 UTC 2022 可以看到默认安装的是JetPack R32，JetPack R32支持的PyTorch最高的版本是v1.</description></item></channel></rss>
