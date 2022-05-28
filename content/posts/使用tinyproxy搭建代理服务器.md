@@ -127,7 +127,7 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
-```
+```shell
 [yearnfar@aws ~]$ sudo cp tinyproxy.service  /lib/systemd/system/tinyproxy.service
 [yearnfar@aws ~]$ sudo systemctl enable tinyproxy
 [yearnfar@aws ~]$ sudo systemctl start tinyproxy
