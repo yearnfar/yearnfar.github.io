@@ -68,10 +68,10 @@ URL : http://www.cip.cc/13.214.254.x
 &lt;span style="color:#658b00">Restart&lt;/span>=&lt;span style="color:#cd5555">on-failure&lt;/span>
 &lt;span style="color:#8b008b;font-weight:bold">[Install]&lt;/span>
 &lt;span style="color:#658b00">WantedBy&lt;/span>=&lt;span style="color:#cd5555">multi-user.target&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code>[yearnfar@aws ~]$ sudo cp tinyproxy.service /lib/systemd/system/tinyproxy.service
-[yearnfar@aws ~]$ sudo systemctl enable tinyproxy
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">[yearnfar@aws ~]$ sudo cp tinyproxy.service /lib/systemd/system/tinyproxy.service
+[yearnfar@aws ~]$ sudo systemctl &lt;span style="color:#658b00">enable&lt;/span> tinyproxy
 [yearnfar@aws ~]$ sudo systemctl start tinyproxy
-&lt;/code>&lt;/pre>- https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/ - yearnfar 2022</description></item><item><title>在Jetson Nano上跑yolov5</title><link>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</link><pubDate>Sun, 22 May 2022 18:16:32 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/ -&lt;h2 id="jetson-naon搭建">Jetson Naon搭建&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>- https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/ - yearnfar 2022</description></item><item><title>在Jetson Nano上跑yolov5</title><link>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</link><pubDate>Sun, 22 May 2022 18:16:32 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/ -&lt;h2 id="jetson-naon搭建">Jetson Naon搭建&lt;/h2>
 &lt;p>参考官方文档：&lt;a href="https://developer.nvidia.com/zh-cn/embedded/learn/get-started-jetson-nano-devkit">Jetson Nano 开发者套件入门&lt;/a>&lt;/p>
 &lt;p>按照官方文档搭建好Jetson Nano环境后，可以看到/usr/local/cuda目录，将CUDA加入环境变量：&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#658b00">export&lt;/span> &lt;span style="color:#00688b">CUDA_HOME&lt;/span>=/usr/local/cuda
