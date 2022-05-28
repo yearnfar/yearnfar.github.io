@@ -78,7 +78,7 @@ FilterDefaultDeny No
 
 ### 测试代理
 
-```
+```shell
 ➜  ~ curl cip.cc
 IP	: 218.19.46.x
 地址	: 中国  广东  广州
