@@ -61,7 +61,7 @@ bin  etc  share
 <span style=color:#228b22>#Allow 127.0.0.1</span>
 <span style=color:#228b22>#Allow ::1</span>
 </code></pre></div><p>启动代理服务器</p><div class=highlight><pre style=background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>[yearnfar@aws tinyproxy]$ sudo /usr/local/tinyproxy/bin/tinyproxy -c /etc/tinyproxy/tinyproxy
-</code></pre></div><h3 id=测试代理>测试代理</h3><pre><code>➜  ~ curl cip.cc
+</code></pre></div><h3 id=测试代理>测试代理</h3><div class=highlight><pre style=background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>➜  ~ curl cip.cc
 IP	: 218.19.46.x
 地址	: 中国  广东  广州
 运营商	: 电信
@@ -72,7 +72,7 @@ IP	: 218.19.46.x
 
 URL	: http://www.cip.cc/218.19.46.x
 
-➜  ~ export http_proxy=&quot;http://yourname:your_password@you_ip:8888&quot;
+➜  ~ <span style=color:#658b00>export</span> <span style=color:#00688b>http_proxy</span>=<span style=color:#cd5555>&#34;http://yourname:your_password@you_ip:8888&#34;</span>
 ➜  ~ curl cip.cc
 IP	: 13.214.254.x
 地址	: 美国  美国
@@ -82,7 +82,7 @@ IP	: 13.214.254.x
 数据三	: 美国康涅狄格 | 亚马逊
 
 URL	: http://www.cip.cc/13.214.254.x
-</code></pre><p>可以看到，代理正常。如果不正常，可以按以下顺序检查：</p><ul><li>Tinyproxy服务是否启动</li><li>云服务器安全组设置是否开放Tinyproxy的监听端口（例如:8888）。</li></ul><h3 id=设置开机自启>设置开机自启</h3><p>创建文件tinyproxy.service</p><div class=highlight><pre style=background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=color:#8b008b;font-weight:700>[Unit]</span>
+</code></pre></div><p>可以看到，代理正常。如果不正常，可以按以下顺序检查：</p><ul><li>Tinyproxy服务是否启动</li><li>云服务器安全组设置是否开放Tinyproxy的监听端口（例如:8888）。</li></ul><h3 id=设置开机自启>设置开机自启</h3><p>创建文件tinyproxy.service</p><div class=highlight><pre style=background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=color:#8b008b;font-weight:700>[Unit]</span>
 <span style=color:#658b00>Description</span>=<span style=color:#cd5555>Tinyproxy daemon</span>
 <span style=color:#658b00>Requires</span>=<span style=color:#cd5555>network.target</span>
 <span style=color:#658b00>After</span>=<span style=color:#cd5555>network.target</span>
