@@ -1,4 +1,77 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>知识时光机</title><link>https://blog.yearnfar.com/</link><description>Recent content on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Sun, 22 May 2022 18:16:32 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/index.xml" rel="self" type="application/rss+xml"/><item><title>在Jetson Nano上跑yolov5</title><link>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</link><pubDate>Sun, 22 May 2022 18:16:32 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/ -&lt;h2 id="jetson-naon搭建">Jetson Naon搭建&lt;/h2>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>知识时光机</title><link>https://blog.yearnfar.com/</link><description>Recent content on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Sun, 29 May 2022 00:26:10 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/index.xml" rel="self" type="application/rss+xml"/><item><title>使用tinyproxy搭建代理服务器</title><link>https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/</link><pubDate>Sun, 29 May 2022 00:26:10 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/ -&lt;p>程序员都有遇到，需要在终端设置http_proxy的情况。这里介绍使用tinyproxy使得在终端科学上网。&lt;/p>
+&lt;h3 id="源码编译安装tinyproxy">源码编译安装Tinyproxy&lt;/h3>
+&lt;p>&lt;a href="https://github.com/tinyproxy/tinyproxy">Tinyproxy项目地址&lt;/a>&lt;/p>
+&lt;p>下载安装包到本地&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">[yearnfar@aws ~]$ wget https://github.com/tinyproxy/tinyproxy/releases/download/1.11.1/tinyproxy-1.11.1.tar.gz
+[yearnfar@aws ~]$ tar zxvf tinyproxy-1.11.1.tar.gz
+[yearnfar@aws ~]$ &lt;span style="color:#658b00">cd&lt;/span> tinyproxy-1.11.1
+[yearnfar@aws ~]$ ./configure --prefix=/usr/local/tinyproxy
+[yearnfar@aws ~]$ make
+&lt;span style="color:#228b22"># 如果提示性没有 gcc&lt;/span>
+&lt;span style="color:#228b22"># [yearnfar@aws ~]$ make yum install gcc&lt;/span>
+[yearnfar@aws ~]$ sudo make install
+[yearnfar@aws ~]$ &lt;span style="color:#658b00">cd&lt;/span> /usr/local/tinyproxy
+[yearnfar@aws tinyproxy]$ ls
+bin etc share
+[yearnfar@aws tinyproxy]$ sudo cp -r etc/tinyproxy /etc/ &lt;span style="color:#228b22"># 将配置文件移动到/etc目录&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改配置文件&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ini" data-lang="ini">&lt;span style="color:#658b00">User nobody&lt;/span>
+&lt;span style="color:#658b00">Group nobody&lt;/span>
+&lt;span style="color:#228b22"># 为了避免被扫描到，最好修改一个端口&lt;/span>
+&lt;span style="color:#658b00">Port 8888 &lt;/span>
+&lt;span style="color:#658b00">Timeout 600&lt;/span>
+&lt;span style="color:#658b00">DefaultErrorFile &amp;#34;/usr/local/tinyproxy/share/tinyproxy/default.html&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">StatFile &amp;#34;/usr/local/tinyproxy/share/tinyproxy/stats.html&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">LogFile &amp;#34;/var/log/tinyproxy.log&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">LogLevel Info&lt;/span>
+&lt;span style="color:#658b00">PidFile &amp;#34;/var/run/tinyproxy.pid&amp;#34;&lt;/span>
+&lt;span style="color:#658b00">MaxClients 100&lt;/span>
+&lt;span style="color:#228b22"># 需要设置一个密码，防止被扫描到，被搭便车&lt;/span>
+&lt;span style="color:#658b00">BasicAuth youname your_password&lt;/span>
+&lt;span style="color:#228b22"># 必须设置，否则默认禁止全部代理&lt;/span>
+&lt;span style="color:#658b00">FilterDefaultDeny No&lt;/span>
+&lt;span style="color:#228b22"># 需要注释掉，否则只能本机使用&lt;/span>
+&lt;span style="color:#228b22">#Allow 127.0.0.1&lt;/span>
+&lt;span style="color:#228b22">#Allow ::1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>启动代理服务器&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">[yearnfar@aws tinyproxy]$ sudo /usr/local/tinyproxy/bin/tinyproxy -c /etc/tinyproxy/tinyproxy
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="测试代理">测试代理&lt;/h3>
+&lt;pre>&lt;code>➜ ~ curl cip.cc
+IP : 218.19.46.x
+地址 : 中国 广东 广州
+运营商 : 电信
+数据二 : 广东省广州市 | 电信
+数据三 :
+URL : http://www.cip.cc/218.19.46.x
+➜ ~ export http_proxy=&amp;quot;http://yourname:your_password@you_ip:8888&amp;quot;
+➜ ~ curl cip.cc
+IP : 13.214.254.x
+地址 : 美国 美国
+数据二 : 美国 | Xerox
+数据三 : 美国康涅狄格 | 亚马逊
+URL : http://www.cip.cc/13.214.254.x
+&lt;/code>&lt;/pre>&lt;p>可以看到，代理正常。如果不正常，可以按以下顺序检查：&lt;/p>
+&lt;ul>
+&lt;li>Tinyproxy服务是否启动&lt;/li>
+&lt;li>云服务器安全组设置是否开放Tinyproxy的监听端口（例如:8888）。&lt;/li>
+&lt;/ul>
+&lt;h3 id="设置开机自启">设置开机自启&lt;/h3>
+&lt;p>创建文件tinyproxy.service&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ini" data-lang="ini">&lt;span style="color:#8b008b;font-weight:bold">[Unit]&lt;/span>
+&lt;span style="color:#658b00">Description&lt;/span>=&lt;span style="color:#cd5555">Tinyproxy daemon&lt;/span>
+&lt;span style="color:#658b00">Requires&lt;/span>=&lt;span style="color:#cd5555">network.target&lt;/span>
+&lt;span style="color:#658b00">After&lt;/span>=&lt;span style="color:#cd5555">network.target&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">[Service]&lt;/span>
+&lt;span style="color:#658b00">Type&lt;/span>=&lt;span style="color:#cd5555">forking&lt;/span>
+&lt;span style="color:#658b00">PIDFile&lt;/span>=&lt;span style="color:#cd5555">/var/run/tinyproxy.pid&lt;/span>
+&lt;span style="color:#658b00">ExecStart&lt;/span>=&lt;span style="color:#cd5555">/usr/sbin/tinyproxy -c /etc/tinyproxy/tinyproxy.conf&lt;/span>
+&lt;span style="color:#658b00">Restart&lt;/span>=&lt;span style="color:#cd5555">on-failure&lt;/span>
+&lt;span style="color:#8b008b;font-weight:bold">[Install]&lt;/span>
+&lt;span style="color:#658b00">WantedBy&lt;/span>=&lt;span style="color:#cd5555">multi-user.target&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code>[yearnfar@aws ~]$ sudo cp tinyproxy.service /lib/systemd/system/tinyproxy.service
+[yearnfar@aws ~]$ sudo systemctl enable tinyproxy
+[yearnfar@aws ~]$ sudo systemctl start tinyproxy
+&lt;/code>&lt;/pre>- https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/ - yearnfar 2022</description></item><item><title>在Jetson Nano上跑yolov5</title><link>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</link><pubDate>Sun, 22 May 2022 18:16:32 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E5%9C%A8jetson-nano%E4%B8%8A%E8%B7%91yolov5/ -&lt;h2 id="jetson-naon搭建">Jetson Naon搭建&lt;/h2>
 &lt;p>参考官方文档：&lt;a href="https://developer.nvidia.com/zh-cn/embedded/learn/get-started-jetson-nano-devkit">Jetson Nano 开发者套件入门&lt;/a>&lt;/p>
 &lt;p>按照官方文档搭建好Jetson Nano环境后，可以看到/usr/local/cuda目录，将CUDA加入环境变量：&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#658b00">export&lt;/span> &lt;span style="color:#00688b">CUDA_HOME&lt;/span>=/usr/local/cuda
@@ -213,5 +286,4 @@ m.values = &lt;span style="color:#658b00">make&lt;/span>(&lt;span style="color:#
 &lt;p>以前写一篇博客经常就1~2小时完成，超过了这个时间就觉得不值得，现在回想起来是自己心态也有问题。要真写好一篇博客，需要先选题、查找资料、有时候还要实践、最后才是总结。怎么也不像是1~2小时能完成的事情，如果要短时间内完成，往往也是粗制滥造。粗制滥造的多了，也会挫伤写作积极性。&lt;/p>
 &lt;h2 id="写作方式">写作方式&lt;/h2>
 &lt;p>以前我一般是在第三方平台(如OSC)或者自己搭建的WordPress上对着编辑器写文章。心里总会有种压迫感，仿佛有人在等我提交。现在改用Hugo+Github Pages，就没有这种压迫感，不发布就不提交，文章保存在本地。而且要迁移也更加方便，我更喜欢这种写作方式。&lt;/p>
-- https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/ - yearnfar 2022</description></item><item><title>Hello World</title><link>https://blog.yearnfar.com/posts/hello-world/</link><pubDate>Mon, 04 Apr 2022 21:35:16 +0800</pubDate><guid>https://blog.yearnfar.com/posts/hello-world/</guid><description>知识时光机 https://blog.yearnfar.com/posts/hello-world/ -&lt;h1 id="hello-world">hello world!&lt;/h1>
-- https://blog.yearnfar.com/posts/hello-world/ - yearnfar 2022</description></item></channel></rss>
+- https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/ - yearnfar 2022</description></item></channel></rss>
