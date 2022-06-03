@@ -3,7 +3,7 @@ title: "中国移动宽带设置ipv6"
 date: 2022-06-03T22:39:34+08:00
 lastmod: 2022-06-03T22:39:34+08:00
 description: "中国移动家庭宽带设置ipv6地址"
-tags: []
+tags: ["IPv6","中国移动"]
 featured_image: "https://cdn.yearnfar.com/blog/22/06/a3fb23f9715c731355f6965ddd2e8411.webp"
 # images is optional, but needed for showing Twitter Card
 images: []
