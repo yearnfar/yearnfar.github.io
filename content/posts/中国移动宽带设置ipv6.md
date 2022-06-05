@@ -63,9 +63,20 @@ author: "yearnfar"
 
 ### 验证IPv6
 
+#### 方式一：
+
 浏览器打开 http://test-ipv6.com/ 验证是否支持IPv6。
 
 ![ipv6测试结果](https://cdn.yearnfar.com/blog/22/06/3d1ce966ae9b3aaa977995c90e953f00.png)
+
+#### 方式二
+
+终端通过CURL获取当前电脑IPv6地址
+
+```shell
+➜  ~ curl https://myip6.ipip.net
+当前 IP：2409:8a55:628:4250:4982:c8ad:****:****  来自于：中国 广东 广州  移动
+```
 
 
 
