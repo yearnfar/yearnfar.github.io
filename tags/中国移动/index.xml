@@ -12,4 +12,6 @@
 保存之后，查看 状态 =&amp;gt; 网络侧信息，可以看到有一条类型是Bridge，协议是 IPv4 &amp;amp; IPv6，状态是 Connected 的记录。到这里，光猫部分的设置就已经完成了。
 路由设置 进入到路由的后台，选择宽带账号上网，输入宽带账号，宽带密码，并联接，即可上网。
 找到IPv6的设置菜单，打开IPv6，如果没有这个菜单，说明路由并不支持IPv6。
-验证IPv6 浏览器打开 http://test-ipv6.com/ 验证是否支持IPv6。</description></item></channel></rss>
+验证IPv6 方式一： 浏览器打开 http://test-ipv6.com/ 验证是否支持IPv6。
+方式二 终端通过CURL获取当前电脑IPv6地址
+➜ ~ curl https://myip6.ipip.net 当前 IP：2409:8a55:628:4250:4982:c8ad:****:**** 来自于：中国 广东 广州 移动</description></item></channel></rss>

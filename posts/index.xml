@@ -12,7 +12,9 @@
 保存之后，查看 状态 =&amp;gt; 网络侧信息，可以看到有一条类型是Bridge，协议是 IPv4 &amp;amp; IPv6，状态是 Connected 的记录。到这里，光猫部分的设置就已经完成了。
 路由设置 进入到路由的后台，选择宽带账号上网，输入宽带账号，宽带密码，并联接，即可上网。
 找到IPv6的设置菜单，打开IPv6，如果没有这个菜单，说明路由并不支持IPv6。
-验证IPv6 浏览器打开 http://test-ipv6.com/ 验证是否支持IPv6。</description></item><item><title>使用tinyproxy搭建代理服务器</title><link>https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/</link><pubDate>Sun, 29 May 2022 00:26:10 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid><description>程序员都有遇到，需要在终端设置http_proxy的情况。这里介绍使用tinyproxy使得在终端科学上网。
+验证IPv6 方式一： 浏览器打开 http://test-ipv6.com/ 验证是否支持IPv6。
+方式二 终端通过CURL获取当前电脑IPv6地址
+➜ ~ curl https://myip6.ipip.net 当前 IP：2409:8a55:628:4250:4982:c8ad:****:**** 来自于：中国 广东 广州 移动</description></item><item><title>使用tinyproxy搭建代理服务器</title><link>https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/</link><pubDate>Sun, 29 May 2022 00:26:10 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E4%BD%BF%E7%94%A8tinyproxy%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid><description>程序员都有遇到，需要在终端设置http_proxy的情况。这里介绍使用tinyproxy使得在终端科学上网。
 源码编译安装Tinyproxy Tinyproxy项目地址
 下载安装包到本地
 [yearnfar@aws ~]$ wget https://github.com/tinyproxy/tinyproxy/releases/download/1.11.1/tinyproxy-1.11.1.tar.gz [yearnfar@aws ~]$ tar zxvf tinyproxy-1.11.1.tar.gz [yearnfar@aws ~]$ cd tinyproxy-1.11.1 [yearnfar@aws ~]$ ./configure --prefix=/usr/local/tinyproxy [yearnfar@aws ~]$ make # 如果提示性没有 gcc # [yearnfar@aws ~]$ make yum install gcc [yearnfar@aws ~]$ sudo make install [yearnfar@aws ~]$ cd /usr/local/tinyproxy [yearnfar@aws tinyproxy]$ ls bin etc share [yearnfar@aws tinyproxy]$ sudo cp -r etc/tinyproxy /etc/ # 将配置文件移动到/etc目录 修改配置文件
