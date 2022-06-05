@@ -1,10 +1,10 @@
 ---
-title: "搭建个人NAS服务器的想法"
+title: "搭建个人NAS服务的想法"
 date: 2022-06-05T12:59:33+08:00
 lastmod: 2022-06-05T12:59:33+08:00
-description: ""
-tags: []
-featured_image: ""
+description: "最近又搭建个人NAS服务的想法，分析下各种方案的利弊和价格。"
+tags: ["个人NAS服务器"]
+featured_image: "https://cdn.yearnfar.com/blog/22/06/29271329604ed7c41b3cbc5fbd435c21.webp"
 # images is optional, but needed for showing Twitter Card
 images: []
 categories:
@@ -13,7 +13,7 @@ draft: false
 author: "yearnfar"
 ---
 
-最近有点想搭建一个个人NAS服务器。原因有以下几点：
+最近有点想搭建个人NAS服务。原因有以下几点：
 
 1. NAS服务器可以用于存储个人数据，因为我已经解决了IPv6问题，再外面访问家里的网也不是问题，即使可能遇到IPv6无法访问的情况（比如我连了不支持IPv6路由）也可以通过内网穿透搞定。
 2. 一直开着一台服务器可以对外提供服务，比如IPv6下载站点。毕竟使用各种云服务商的存储和流量是需要花钱的，比如阿里云OSS 5G以内不收存储费用，流量另外计费0.8元/G，而家里的网络不用另外交费用。
