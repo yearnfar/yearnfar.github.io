@@ -2,7 +2,7 @@
 title: "搭建个人NAS服务的想法"
 date: 2022-06-05T12:59:33+08:00
 lastmod: 2022-06-05T12:59:33+08:00
-description: "最近又搭建个人NAS服务的想法，分析下各种方案的利弊和价格。"
+description: "最近想搭建个人NAS服务，分析下各种方案的利弊和价格。"
 tags: ["个人NAS服务器"]
 featured_image: "https://cdn.yearnfar.com/blog/22/06/29271329604ed7c41b3cbc5fbd435c21.webp"
 # images is optional, but needed for showing Twitter Card
