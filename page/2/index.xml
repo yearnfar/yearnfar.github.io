@@ -1,4 +1,38 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>知识时光机</title><link>https://blog.yearnfar.com/</link><description>Recent content on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Sun, 05 Jun 2022 12:59:33 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://blog.yearnfar.com/about/</link><pubDate>Tue, 05 Apr 2022 17:38:38 +0800</pubDate><guid>https://blog.yearnfar.com/about/</guid><description>知识时光机 https://blog.yearnfar.com/about/ -- https://blog.yearnfar.com/about/ - yearnfar 2022</description></item><item><title>知识时光机</title><link>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</link><pubDate>Tue, 05 Apr 2022 09:52:43 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/ -&lt;h1 id="为什么要写博客">为什么要写博客&lt;/h1>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>知识时光机</title><link>https://blog.yearnfar.com/</link><description>Recent content on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Mon, 20 Jun 2022 22:50:45 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/index.xml" rel="self" type="application/rss+xml"/><item><title>数据库缓存一致性</title><link>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</link><pubDate>Sat, 23 Apr 2022 21:24:40 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/ -&lt;p>在高并发场景下，保证数据库和缓存一致性&lt;/p>
+&lt;p>更新缓存有4中方案&lt;/p>
+&lt;ul>
+&lt;li>先更新数据库，然后更新缓存&lt;/li>
+&lt;li>先更新缓存，然后更新数据库&lt;/li>
+&lt;li>先更新数据库，然后删除缓存&lt;/li>
+&lt;li>先删除缓存，然后更新数据库&lt;/li>
+&lt;/ul>
+&lt;p>下面我们分别分四种情况的高并发情况下，四种方案可能出现的问题：&lt;/p>
+&lt;h3 id="先更新数据库然后更新缓存">先更新数据库，然后更新缓存&lt;/h3>
+&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/c2206948ef2a1252e369019b7a4bc9f2.png" alt="先更新数据库后更新缓存.drawio">&lt;/p>
+&lt;p>进程一、进程二都模拟了一个先更新数据库，后更新缓存的场景。&lt;/p>
+&lt;p>1、如果进程二更新缓存发生在进程一更新缓存之前（即t3变成了t3`），此时缓存值是v1，数据库值为v2，发生了数据库和缓存不一致的情况。&lt;/p>
+&lt;p>2、先更新数据库后更新缓存还存在如果该缓存使用率不高，浪费缓存空间的情况。&lt;/p>
+&lt;h3 id="先更新缓存然后更新数据库">先更新缓存，然后更新数据库&lt;/h3>
+&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/151eea356a914f714a311347bc0f85e2.png" alt="先更新缓存后更新数据库.drawio">&lt;/p>
+&lt;p>进程一、进程二分别模拟了一个先更新缓存，后更新数据库的场景。&lt;/p>
+&lt;p>1、如果进程二更新数据库发生在进程一更新数据库之前（即t3变成了t3`），此时缓存值为v2，数据库值为v1，出现了缓存与数据库不一致的情况。&lt;/p>
+&lt;p>2、先更新缓存后更新数据库也存在也存在如果key对应缓存使用率不高，浪费缓存空间的情况。&lt;/p>
+&lt;h3 id="先更新数据库然后删除缓存">先更新数据库，然后删除缓存&lt;/h3>
+&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/5d206e10e5e3d326e0f680ba26210597.png" alt="先更新数据库后删除缓存.drawio">&lt;/p>
+&lt;p>进程一、进程三模拟更新数据库并删除缓存。&lt;/p>
+&lt;p>进程二模拟首次生成缓存值。&lt;/p>
+&lt;p>从上面的图可以看出，如果t3-&amp;gt;t6时间段有更新数据库并删除缓存，则会出数据库中值为v2，但是缓存中值为v1的情况。这种概率几乎可以忽略不计，因为t3-&amp;gt; t6时间非常短，且更新数据库和删除缓存都必须都发生在这个时间才会导致上述情况。&lt;/p>
+&lt;p>但是，如果t1或者t5删除缓存失败，则会导致在缓存被删除或失效前读取到的都是旧值。所以这种方案需要确保删除缓存操作的可靠性很高。推荐的做法是，先删除一次，如果删除失败，再写入消息队列，使用消息队列的重试删除，直到删除成功为止。&lt;/p>
+&lt;h3 id="先删除缓存后更新数据库">先删除缓存，后更新数据库&lt;/h3>
+&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/7eed42dfd1bd9ccef46b8ccc270734c1.png" alt="先删除缓存后更新数据库.drawio">&lt;/p>
+&lt;p>进程一、进程三模拟删除缓存并更新数据库。&lt;/p>
+&lt;p>进程二模拟首次生成缓存值。&lt;/p>
+&lt;p>从上图可以看出，如果进程三在t5之前删除缓存，且在t5后更新数据库，则必然发生数据库中存的值与缓存中存的值不一致的情况。&lt;/p>
+&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/286e5d152121fd4f744175a3339b3799.png" alt="先删除缓存后更新数据库2.drawio">&lt;/p>
+&lt;p>进程一、进程三模拟删除缓存并更新数据库。&lt;/p>
+&lt;p>进程二模拟首次生成缓存值。&lt;/p>
+&lt;p>从上图可以看出，如果进程三在t4~t6之间还有写入数据库的操作，也必然发生数据库中存的值与缓存中存的值不一致的情况。&lt;/p>
+- https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/ - yearnfar 2022</description></item><item><title>About</title><link>https://blog.yearnfar.com/about/</link><pubDate>Tue, 05 Apr 2022 17:38:38 +0800</pubDate><guid>https://blog.yearnfar.com/about/</guid><description>知识时光机 https://blog.yearnfar.com/about/ -- https://blog.yearnfar.com/about/ - yearnfar 2022</description></item><item><title>知识时光机</title><link>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</link><pubDate>Tue, 05 Apr 2022 09:52:43 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E7%9F%A5%E8%AF%86%E6%97%B6%E5%85%89%E6%9C%BA/ -&lt;h1 id="为什么要写博客">为什么要写博客&lt;/h1>
 &lt;p>以前在开源中国上面写过一段时间的博客，偶尔也写一些原创性的，但是大多数还是已转载为主。可能是转载的转多了（可以转载为什么要原创），也可能是进步太慢（没有什么可以总结的），后来慢慢的也不写博客了。最近更加注重学习和总结，于是又重新拾起博客，让它记录我学习和成长的过程。&lt;/p>
 &lt;h1 id="应该避免的问题">应该避免的问题&lt;/h1>
 &lt;p>既然现在开始写博客，我想还是要先总结下以前放弃写博客的原因，以及怎么做才能不重蹈覆辙。&lt;/p>

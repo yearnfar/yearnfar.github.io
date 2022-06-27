@@ -1,4 +1,47 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>知识时光机</title><link>https://blog.yearnfar.com/</link><description>Recent content on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Sun, 05 Jun 2022 12:59:33 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/index.xml" rel="self" type="application/rss+xml"/><item><title>搭建个人NAS服务的想法</title><link>https://blog.yearnfar.com/posts/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAnas%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%83%B3%E6%B3%95/</link><pubDate>Sun, 05 Jun 2022 12:59:33 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAnas%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%83%B3%E6%B3%95/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAnas%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%83%B3%E6%B3%95/ -&lt;p>最近有点想搭建个人NAS服务。原因有以下几点：&lt;/p>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>知识时光机</title><link>https://blog.yearnfar.com/</link><description>Recent content on 知识时光机</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>yearnfar 2022</copyright><lastBuildDate>Mon, 20 Jun 2022 22:50:45 +0800</lastBuildDate><atom:link href="https://blog.yearnfar.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu系统iptables入门</title><link>https://blog.yearnfar.com/posts/ubuntu%E7%B3%BB%E7%BB%9Fiptables%E5%85%A5%E9%97%A8/</link><pubDate>Mon, 20 Jun 2022 22:50:45 +0800</pubDate><guid>https://blog.yearnfar.com/posts/ubuntu%E7%B3%BB%E7%BB%9Fiptables%E5%85%A5%E9%97%A8/</guid><description>知识时光机 https://blog.yearnfar.com/posts/ubuntu%E7%B3%BB%E7%BB%9Fiptables%E5%85%A5%E9%97%A8/ -&lt;p>一直用云服务商，比如阿里云、AWS等，不需要设置防火墙，只要设置安全组就可以了。&lt;/p>
+&lt;p>最近够买了一个SBC，放在家里做服务器，需要自己设置防火墙了。&lt;/p>
+&lt;p>本来最简单的方法是使用UFW，可能是我装的系统ufw和iptables版本不对的原因，开启UFW报错，设置的规则全部无效。只能自己写iptables rule了。&lt;/p>
+&lt;h3 id="iptables规则持久化">iptables规则持久化&lt;/h3>
+&lt;p>如果设置的规则不能持久化，重启系统又要重新设置iptables该多烦人，首先要解决的就是iptables的持久化问题。需要安装iptables-persistent，这样重启系统之后，iptables自动生效。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#228b22"># 安装 iptables-persistent&lt;/span>
+sudo apt-get install iptables-persistent
+&lt;span style="color:#228b22"># 开机启动&lt;/span>
+sudo systemctl &lt;span style="color:#658b00">enable&lt;/span> iptables
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装好iptables-persistent发现生成了/etc/iptables目录，目录里面包含rules.v4、rules.v6两个文件。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#228b22"># 把ipv4防火墙规则持久化&lt;/span>
+sudo iptables-save &amp;gt; /etc/iptables/rules.v4
+&lt;span style="color:#228b22"># 把ipv6防护墙规则持久化&lt;/span>
+sudo ip6tables-save &amp;gt; /etc/iptables/rules.v6
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="防火墙策略">防火墙策略&lt;/h3>
+&lt;p>防火墙策略有两种，黑名单或者白名单。&lt;/p>
+&lt;p>黑名单，默认允许全部流量，需要限制的协议、端口需要单独设置。&lt;/p>
+&lt;p>白名单，默认拒绝全部流量，需要开放的协议、端口需要单独设置。&lt;/p>
+&lt;p>黑名单相对简单，白名单则更安全。&lt;/p>
+&lt;h3 id="白名单策略">白名单策略&lt;/h3>
+&lt;p>在开启白名单设置前，首先一定要开放SSH端口访问，否则一旦开启防火墙，就无法通过SSH登录服务器了。如果你更改过ssh端口，开放你对应的ssh端口即可。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#228b22"># IPv4、IPv6开放22端口&lt;/span>
+sudo iptables -A INPUT -p tcp --dport &lt;span style="color:#b452cd">22&lt;/span> -j ACCEPT
+sudo ip6tables -A INPUT -p tcp --dport &lt;span style="color:#b452cd">22&lt;/span> -j ACCEPT
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>开放SSH端口后，就可以设置默认规则了&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#228b22"># IPv4、IPv6默认将所以的流入数据丢弃&lt;/span>
+sudo iptables -P INPUT DROP
+sudo ip6tables -P INPUT DROP
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样，除了SSH端口外，所有的流入数据都被丢弃了，也就是所有除SSH端口外，全部端口都无法访问。&lt;/p>
+&lt;p>清理iptables规则，如果默认规则是DROP，不要运行这个命令，否则会导致无法使用SSH。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">sudo iptable -F
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行了iptables -F 之后，所有的规则都会被清理，如果默认规则是DROP，则会导致无法使用SSH。&lt;/p>
+&lt;p>所以更好的白名单设置是，默认允许所有流量，再最后加入拒绝所有流量的规则。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">sudo iptables -P INPUT ACCEPT
+sudo ip6tables -P INPUT ACCEPT
+sudo iptables -A INPUT -j REJECT
+sudo ip6tables -A INPUT -j REJECT
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用黑名单还有个问提，在于有些服务依赖某些端口，但是默认被关闭了，导致服务无法访问。&lt;/p>
+&lt;p>下面列举几个我遇到的问题：&lt;/p>
+&lt;p>1、使用了nginx反向代理本地端口，这个时候需要对127.0.0.1，允许所有流入数据。&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">sudo iptables -A INPUT -p tcp -s 127.0.0.1 -j ACCEPT
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果想深入了解iptables相关设定，推荐一个大佬的博客，讲得特别通俗易懂。&lt;/p>
+&lt;p>&lt;a href="https://www.zsythink.net/archives/category/%e8%bf%90%e7%bb%b4%e7%9b%b8%e5%85%b3/iptables">IPtables-朱双印博客&lt;/a>&lt;/p>
+- https://blog.yearnfar.com/posts/ubuntu%E7%B3%BB%E7%BB%9Fiptables%E5%85%A5%E9%97%A8/ - yearnfar 2022</description></item><item><title>搭建个人NAS服务的想法</title><link>https://blog.yearnfar.com/posts/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAnas%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%83%B3%E6%B3%95/</link><pubDate>Sun, 05 Jun 2022 12:59:33 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAnas%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%83%B3%E6%B3%95/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAnas%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%83%B3%E6%B3%95/ -&lt;p>最近有点想搭建个人NAS服务。原因有以下几点：&lt;/p>
 &lt;ol>
 &lt;li>NAS服务器可以用于存储个人数据，因为我已经解决了IPv6问题，再外面访问家里的网也不是问题，即使可能遇到IPv6无法访问的情况（比如我连了不支持IPv6路由）也可以通过内网穿透搞定。&lt;/li>
 &lt;li>一直开着一台服务器可以对外提供服务，比如IPv6下载站点。毕竟使用各种云服务商的存储和流量是需要花钱的，比如阿里云OSS 5G以内不收存储费用，流量另外计费0.8元/G，而家里的网络不用另外交费用。&lt;/li>
@@ -297,38 +340,4 @@ m := &amp;amp;Map[K, V]{}
 m.values = &lt;span style="color:#658b00">make&lt;/span>(&lt;span style="color:#8b008b;font-weight:bold">map&lt;/span>[K]V)
 &lt;span style="color:#8b008b;font-weight:bold">return&lt;/span> m
 }
-&lt;/code>&lt;/pre>&lt;/div>- https://blog.yearnfar.com/posts/go1.18%E6%B3%9B%E5%9E%8B%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84map/ - yearnfar 2022</description></item><item><title>数据库缓存一致性</title><link>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</link><pubDate>Sat, 23 Apr 2022 21:24:40 +0800</pubDate><guid>https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/</guid><description>知识时光机 https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/ -&lt;p>在高并发场景下，保证数据库和缓存一致性&lt;/p>
-&lt;p>更新缓存有4中方案&lt;/p>
-&lt;ul>
-&lt;li>先更新数据库，然后更新缓存&lt;/li>
-&lt;li>先更新缓存，然后更新数据库&lt;/li>
-&lt;li>先更新数据库，然后删除缓存&lt;/li>
-&lt;li>先删除缓存，然后更新数据库&lt;/li>
-&lt;/ul>
-&lt;p>下面我们分别分四种情况的高并发情况下，四种方案可能出现的问题：&lt;/p>
-&lt;h3 id="先更新数据库然后更新缓存">先更新数据库，然后更新缓存&lt;/h3>
-&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/c2206948ef2a1252e369019b7a4bc9f2.png" alt="先更新数据库后更新缓存.drawio">&lt;/p>
-&lt;p>进程一、进程二都模拟了一个先更新数据库，后更新缓存的场景。&lt;/p>
-&lt;p>1、如果进程二更新缓存发生在进程一更新缓存之前（即t3变成了t3`），此时缓存值是v1，数据库值为v2，发生了数据库和缓存不一致的情况。&lt;/p>
-&lt;p>2、先更新数据库后更新缓存还存在如果该缓存使用率不高，浪费缓存空间的情况。&lt;/p>
-&lt;h3 id="先更新缓存然后更新数据库">先更新缓存，然后更新数据库&lt;/h3>
-&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/151eea356a914f714a311347bc0f85e2.png" alt="先更新缓存后更新数据库.drawio">&lt;/p>
-&lt;p>进程一、进程二分别模拟了一个先更新缓存，后更新数据库的场景。&lt;/p>
-&lt;p>1、如果进程二更新数据库发生在进程一更新数据库之前（即t3变成了t3`），此时缓存值为v2，数据库值为v1，出现了缓存与数据库不一致的情况。&lt;/p>
-&lt;p>2、先更新缓存后更新数据库也存在也存在如果key对应缓存使用率不高，浪费缓存空间的情况。&lt;/p>
-&lt;h3 id="先更新数据库然后删除缓存">先更新数据库，然后删除缓存&lt;/h3>
-&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/5d206e10e5e3d326e0f680ba26210597.png" alt="先更新数据库后删除缓存.drawio">&lt;/p>
-&lt;p>进程一、进程三模拟更新数据库并删除缓存。&lt;/p>
-&lt;p>进程二模拟首次生成缓存值。&lt;/p>
-&lt;p>从上面的图可以看出，如果t3-&amp;gt;t6时间段有更新数据库并删除缓存，则会出数据库中值为v2，但是缓存中值为v1的情况。这种概率几乎可以忽略不计，因为t3-&amp;gt; t6时间非常短，且更新数据库和删除缓存都必须都发生在这个时间才会导致上述情况。&lt;/p>
-&lt;p>但是，如果t1或者t5删除缓存失败，则会导致在缓存被删除或失效前读取到的都是旧值。所以这种方案需要确保删除缓存操作的可靠性很高。推荐的做法是，先删除一次，如果删除失败，再写入消息队列，使用消息队列的重试删除，直到删除成功为止。&lt;/p>
-&lt;h3 id="先删除缓存后更新数据库">先删除缓存，后更新数据库&lt;/h3>
-&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/7eed42dfd1bd9ccef46b8ccc270734c1.png" alt="先删除缓存后更新数据库.drawio">&lt;/p>
-&lt;p>进程一、进程三模拟删除缓存并更新数据库。&lt;/p>
-&lt;p>进程二模拟首次生成缓存值。&lt;/p>
-&lt;p>从上图可以看出，如果进程三在t5之前删除缓存，且在t5后更新数据库，则必然发生数据库中存的值与缓存中存的值不一致的情况。&lt;/p>
-&lt;p>&lt;img src="https://cdn.yearnfar.com/blog/22/05/286e5d152121fd4f744175a3339b3799.png" alt="先删除缓存后更新数据库2.drawio">&lt;/p>
-&lt;p>进程一、进程三模拟删除缓存并更新数据库。&lt;/p>
-&lt;p>进程二模拟首次生成缓存值。&lt;/p>
-&lt;p>从上图可以看出，如果进程三在t4~t6之间还有写入数据库的操作，也必然发生数据库中存的值与缓存中存的值不一致的情况。&lt;/p>
-- https://blog.yearnfar.com/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/ - yearnfar 2022</description></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;/div>- https://blog.yearnfar.com/posts/go1.18%E6%B3%9B%E5%9E%8B%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84map/ - yearnfar 2022</description></item></channel></rss>
