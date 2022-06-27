@@ -4,12 +4,12 @@ date: 2022-06-20T22:50:45+08:00
 lastmod: 2022-06-20T22:50:45+08:00
 description: ""
 tags: []
-featured_image: ""
+featured_image: "https://cdn.yearnfar.com/blog/22/06/5c498d7940a650796630f20710d6761c.jpg"
 # images is optional, but needed for showing Twitter Card
 images: []
 categories:
 comment: false
-draft: true
+draft: false
 author: "yearnfar"
 ---
 
@@ -89,10 +89,6 @@ sudo iptables -A INPUT -j REJECT
 sudo ip6tables -A INPUT -j REJECT
 ```
 
-如果想深入了解iptables相关设定，推荐一个大佬的博客，讲得特别通俗易懂。
-
-### 白名单其他问题
-
 使用黑名单还有个问提，在于有些服务依赖某些端口，但是默认被关闭了，导致服务无法访问。
 
 下面列举几个我遇到的问题：
@@ -103,7 +99,6 @@ sudo ip6tables -A INPUT -j REJECT
 sudo iptables -A INPUT -p tcp -s 127.0.0.1 -j ACCEPT
 ```
 
-
+如果想深入了解iptables相关设定，推荐一个大佬的博客，讲得特别通俗易懂。
 
 [IPtables-朱双印博客](https://www.zsythink.net/archives/category/%e8%bf%90%e7%bb%b4%e7%9b%b8%e5%85%b3/iptables)
-
