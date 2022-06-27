@@ -3,7 +3,7 @@ title: "Ubuntu系统iptables入门"
 date: 2022-06-20T22:50:45+08:00
 lastmod: 2022-06-20T22:50:45+08:00
 description: ""
-tags: []
+tags: ["iptables", "防火墙"]
 featured_image: "https://cdn.yearnfar.com/blog/22/06/5c498d7940a650796630f20710d6761c.jpg"
 # images is optional, but needed for showing Twitter Card
 images: []
@@ -13,9 +13,7 @@ draft: false
 author: "yearnfar"
 ---
 
-一直用云服务商，比如阿里云、AWS等，不需要设置防火墙，只要设置安全组就可以了。
-
-最近够买了一个SBC，放在家里做服务器，需要自己设置防火墙了。
+一直用云服务商，比如阿里云、AWS等，不需要设置防火墙，只要设置安全组就可以了。最近够买了一个SBC，放在家里做服务器，需要自己设置防火墙了。
 
 本来最简单的方法是使用UFW，可能是我装的系统ufw和iptables版本不对的原因，开启UFW报错，设置的规则全部无效。只能自己写iptables rule了。
 
