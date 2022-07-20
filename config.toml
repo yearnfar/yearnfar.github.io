@@ -6,6 +6,10 @@ copyright = "yearnfar 2022"
 theme = "diary"
 googleAnalytics = "G-QBPX79CYCP"
 
+[frontmatter]
+  date = ["date", "publishDate"]
+  lastmod = [":git", "lastmod"]
+
 [markup]
   [markup.highlight]
     codeFences = true
@@ -52,15 +56,19 @@ url = "/posts"
 name = "归档／Archive"
 weight = 2
 [[menu.main]]
+url = "/books"
+name = "书籍／Books"
+weight = 3
+[[menu.main]]
 url = "/tags"
 name = "标签／Tags"
-weight = 3
+weight = 4
 [[menu.main]]
 url = "https://www.ecosia.org/search?q=site:blog.yearnfar.com"
 name = "搜索／Search"
-weight = 4
+weight = 5
 [[menu.main]]
 url = "/index.xml"
 name = "订阅／RSS"
-weight = 5
+weight = 6
 
